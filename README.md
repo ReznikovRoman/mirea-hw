@@ -1,3 +1,3 @@
-##MIREA TOP
+#MIREA TOP
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![MIREA Logo](https://www.mirea.ru/upload/medialibrary/80f/MIREA_Gerb_Colour.png)
