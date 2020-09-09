@@ -6,6 +6,8 @@
 #include <map>
 
 #include <string>
+
+#include <algorithm>
 using namespace std;
 
 
@@ -20,25 +22,28 @@ pair<string, string> getCountryStatistics(int goldCount, int silverCount, int br
 }
 
 
+bool compareScores(map<string, string> i, map<string, string> j)
+{
+    return stoi(i["Score"]) > stoi(j["Score"]);
+}
+
+void sortByScore(vector<map<string, string>> &stats)
+{
+    sort(stats.begin(), stats.end(), compareScores);
+}
+
+
 void printStatistics(vector<map<string, string>> stats)
 {
     cout << endl;
     cout << "\t\tCountry\t\tGold\tSilver\tBronze\tTotal\tScore" << endl;
-    for (int i = 0; i < stats.capacity(); ++i)
+    for (int i = 0; i < stats.size(); ++i)
     {
         cout << '\t' << i + 1 << '\t' << stats[i]["Country"] << "\t\t" << stats[i]["Gold"] << '\t' << stats[i]["Silver"] << '\t' << stats[i]["Bronze"];
         cout << '\t' << stats[i]["Total"] << '\t' << stats[i]["Score"];
         cout << endl;
     }
     cout << endl;
-}
-
-void printCountry(map<string, string> countryStats)
-{
-    for (auto el : countryStats)
-    {
-        cout << el.first << ": " << el.second << endl;
-    }
 }
 
 
@@ -49,10 +54,9 @@ int main()
     1. countryResults - словарь результатов стран (кол-во золотых, серебряных, бронзовых медалей, общее кол-во, и кол-во очков)
     2. countryList - список стран-участниц
     3. olympicStatistics - вектор со статистикой всех стран
-    
     */
 
-    cout << endl << "Results of the Olympic games" << endl;
+    cout << endl << "Results of the Olympic games" << endl << endl;
 
     map<string, string> countryResults;
     vector<map<string, string>> olympicStatistics;
@@ -76,11 +80,13 @@ int main()
 
         // удаляем данные по текущей стране
         countryResults.clear();
-
-        //cout << endl;
     }
     cout << endl;
 
+    // сортируем по количеству очков
+    sortByScore(olympicStatistics);
+
+    // выводим статистику на экран
     printStatistics(olympicStatistics);
 
 
