@@ -7,6 +7,8 @@
 #include <vector>
 #include <fstream>
 
+#include <algorithm>
+
 #include <string>
 using namespace std;
 
@@ -65,15 +67,24 @@ public:
 };
 
 
+bool compareGrades(Student i, Student j)
+{
+    return (i.getAverageGrade() > j.getAverageGrade());
+}
+
+void sortByGrade(vector<Student> &students)
+{
+    sort(students.begin(), students.end(), compareGrades);
+}
+
+
 int main()
 {
     cout << endl;
 
     string line;
     int n;
-    
-    ofstream in_file;
-    //in_file.open("students_26.txt");
+   
 
     vector<string> subjects = { "Math", "Programming", "Informatics" };
     vector<Student> students;
@@ -97,13 +108,32 @@ int main()
             cout << "Enter Student's grade in " << subject << ": ";
             cin >> grades[subject];
         }
-        cout << endl;
 
         Student newStudent(id, firstName, lastName, grades);
         students.push_back(newStudent);
 
-        newStudent.print();
+        cout << endl;
     }
+
+    sortByGrade(students);
+
+    ofstream in_file;
+    in_file.open("students_26.txt");
+    
+    for (auto student : students)
+    {
+        in_file << student.getId() << ". " << student.getFullName() << '\t';
+        for (auto grade : student.getGrades())
+        {
+            in_file << " " << grade.first << " : " << grade.second;
+        }
+        in_file << " Average grade: " << student.getAverageGrade();
+        in_file << "\n";
+    }
+
+    in_file.close();
+
+
 
 
 
