@@ -18,12 +18,12 @@ void perestanovka(int m, int n, vector<int> balls)
     for (int i = 0; i < balls.size(); i++)
     {
 
-        auto iter = balls.cbegin();
+        auto it = balls.begin();
 
         if (i + 1 == m)
         {
             cout << "i: " << i + 1 << endl;
-            balls.erase(iter + i);
+            balls.erase(it + i);
             printBalls(balls);
         }
         else
@@ -55,9 +55,9 @@ void ballsTask()
     }
 
     perestanovka(1, n, balls);
-    
 
-    
+
+
 
 
 }
@@ -65,9 +65,7 @@ void ballsTask()
 
 int main()
 {
-
-    // К какой задаче относится алгоритм генератора перестановок?
-
+    
     ballsTask();
 
 
