@@ -1,9 +1,14 @@
 
 
 #include <iostream>
-
+#include <algorithm>
 #include <vector>
 using namespace std;
+
+
+/*
+
+*/
 
 
 void printBalls(vector<int> balls)
@@ -12,54 +17,46 @@ void printBalls(vector<int> balls)
     cout << endl;
 }
 
-void perestanovka(int m, int n, vector<int> balls)
-{
-
-    for (int i = 0; i < balls.size(); i++)
-    {
-
-        auto it = balls.begin();
-
-        if (i + 1 == m)
-        {
-            cout << "i: " << i + 1 << endl;
-            balls.erase(it + i);
-            printBalls(balls);
-        }
-        else
-        {
-            cout << "NO" << endl;
-            int temp;
-            temp = balls[i];
-            balls[i] = balls[m];
-            balls[m] = temp;
-            printBalls(balls);
-        }
-
-        m += 1;
-    }
-}
-
 
 void ballsTask()
 {
     vector<int> balls;
     int n;
+    vector<vector<int>> permutations;
+    int sum = 0;
 
     cout << "Enter balls amount - n: ";
     cin >> n;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i < n + 1; i++)
     {
-        balls.push_back(i + 1);
+        balls.push_back(i);
     }
 
-    perestanovka(1, n, balls);
+    
+
+    while (next_permutation(balls.begin(), balls.end()))
+    {
+        permutations.push_back(balls);
+    }
+
+    for (auto balls : permutations)
+    {
+        for (int i = 0; i < balls.size(); i++)
+        {
+            if (balls[i] == i + 1)
+            { 
+                sum += 1;
+                //printBalls(balls); 
+            }
+        }
+    }
+
+    cout << "Sum: " << sum << endl;
 
 
 
-
-
+    
 }
 
 
