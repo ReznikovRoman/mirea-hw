@@ -4,13 +4,13 @@
 #include <cmath>
 using namespace std;
 
-void task1(double h, double r, double R, double l)
+void task1(const double &h, const double &r, const double &R, const double &l)
 {
     double V, S;
 
     const double PI = 3.141592653589793;
 
-    V = (PI * h * (R*R + R*r +r*r)) / 3;
+    V = (PI * h * (R * R + R * r + r * r)) / 3;
     S = PI * (R * R + (R + r) * l + r * r);
 
 
@@ -37,7 +37,7 @@ void task2()
     }
 }
 
-void task3(float x, float y, float b)
+void task3(const float &x, const float &y, const float &b)
 {
     float z;
 
@@ -66,7 +66,7 @@ void task4(int N)
 
 
 
-float f5(float x5)
+float f5(const float &x5)
 {
     return ((x5 * x5 - 2 * x5 + 2) / (x5 - 1));
 }

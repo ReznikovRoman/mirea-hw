@@ -11,7 +11,7 @@
 using namespace std;
 
 
-pair<string, string> getCountryStatistics(int goldCount, int silverCount, int bronzeCount)
+pair<string, string> getCountryStatistics(const int &goldCount, const int &silverCount, const int &bronzeCount)
 {
     int total = 0, score = 0;
 
@@ -61,7 +61,7 @@ int main()
     map<string, string> countryResults;
     vector<map<string, string>> olympicStatistics;
     vector<string> countryList = { "Austria", "Germany", "Canada", "China", "Korea", "Norway", "Russia", "USA", "Finland", "Japan" };
-    
+
     cout << "Enter the amount of gold, silver and bronze medals" << endl;
     for (string country : countryList)
     {

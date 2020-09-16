@@ -44,8 +44,8 @@ void task2()
     a1 = (S + 12 * m + sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
     a2 = (S + 12 * m - sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
 
-    p1 = (pow(a1, 1/n) - 1) * 100;
-    p2 = (pow(a2, 1/n) - 1) * 100;
+    p1 = (pow(a1, 1 / n) - 1) * 100;
+    p2 = (pow(a2, 1 / n) - 1) * 100;
 
     cout << "P1: " << p1 << "\t\tP2: " << p2 << endl;
 
@@ -66,7 +66,7 @@ void task3()
 
     ifstream o_file;
     o_file.open("test.txt");
-    
+
     while (getline(o_file, line))
     {
         cout << line;
@@ -87,12 +87,12 @@ void task4()
 
     ifstream o_file;
     o_file.open("test_4.txt");
-    
+
     char digits[11] = "0123456789";
 
     while (getline(o_file, line))
     {
-        for (auto c : line) 
+        for (auto c : line)
         {
             if (isdigit(c)) { num += c; }
             else
@@ -105,7 +105,7 @@ void task4()
 }
 
 
-void sortedStr(string& s)
+void sortedStr(string &s)
 {
     sort(s.begin(), s.end());
 }

@@ -2,11 +2,11 @@
 
 using namespace std;
 
-int fib(int n)
+int fib(const int &n)
 {
     if (n <= 1) { return n; }
 
-    return fib(n-1) + fib(n-2);
+    return fib(n - 1) + fib(n - 2);
 }
 
 
@@ -18,6 +18,6 @@ int main()
 
     cout << "\tEnter 'n': ";
     cin >> n;
-    
+
     cout << endl << "\tFib_n: " << fib(n) << endl;
 }

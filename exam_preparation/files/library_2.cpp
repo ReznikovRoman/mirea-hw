@@ -8,73 +8,75 @@
 
 #include <fstream>
 
+using namespace std;
 
-void printBook(std::map<std::string, std::string> book)
+
+void printBook(const map<string, string> &book)
 {
     for (auto it : book)
     {
-        std::cout << it.first
-                  << ":"
-                  << it.second
-                  << std::endl;
+        cout << it.first
+            << ":"
+            << it.second
+            << endl;
     }
 
-    std::cout << std::endl;
+    cout << endl;
 }
 
-std::pair<std::string, std::string> findBookByTitle(std::vector<std::map<std::string, std::string>> books, std::string title)
+pair<string, string> findBookByTitle(const vector<map<string, string>> &books, const string &title)
 {
 
-    for (std::map<std::string, std::string> book : books)
+    for (map<string, string> book : books)
     {
-        if (book["Title"] == title) { return std::make_pair(book["Author"], book["Title"]); }
+        if (book["Title"] == title) { return make_pair(book["Author"], book["Year"]); }
     }
 
-    return std::make_pair("Error", "There is no book with this title");
+    return make_pair("Error", "There is no book with this title");
 }
 
 
 int main()
 {
     int books_count;
-    std::string a_name, b_title, year;
+    string a_name, b_title, year;
 
-    std::vector<std::map<std::string, std::string>> books;
-    std::map<std::string, std::string> book;
+    vector<map<string, string>> books;
+    map<string, string> book;
 
-    std::string user_title;
-    std::pair<std::string, std::string> bookInfo;
+    string user_title;
+    pair<string, string> bookInfo;
 
 
     // User Input
-    std::cout << std::endl << "Task - 2" << std::endl << "Library" << std::endl;
+    cout << endl << "Task - 2" << endl << "Library" << endl;
 
-    std::cout << std::endl << "Enter Books Amount: ";
-    std::cin >> books_count;
+    cout << endl << "Enter Books Amount: ";
+    cin >> books_count;
 
-    std::ofstream in_file;
+    ofstream in_file;
     in_file.open("books_2.txt");
 
     for (int i = 0; i < books_count; ++i)
     {
         in_file << "\nBook #" << i + 1 << "\n";
 
-        std::cout << std::endl << "Enter Author Name: ";
+        cout << endl << "Enter Author Name: ";
         // https://stackoverflow.com/questions/21373234/using-two-getlinecin-s-in-c
-        std::cin.ignore(std::cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
-        std::getline(std::cin, a_name);
-        std::cin.clear();
+        cin.ignore(cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
+        getline(cin, a_name);
+        cin.clear();
         in_file << "Author: " << a_name << "\n";
 
-        std::cout << "Enter Book Title: ";
-        std::cin.ignore(std::cin.rdbuf()->in_avail());
-        std::getline(std::cin, b_title);
-        std::cin.clear();
+        cout << "Enter Book Title: ";
+        cin.ignore(cin.rdbuf()->in_avail());
+        getline(cin, b_title);
+        cin.clear();
         in_file << "title: " << b_title << "\n";
 
-        std::cout << "Enter Year of Publication: ";
-        std::cin >> year;
-        std::cout << std::endl;
+        cout << "Enter Year of Publication: ";
+        cin >> year;
+        cout << endl;
         in_file << "Year of Publication: " << year << "\n";
 
         book["Author"] = a_name;
@@ -95,20 +97,20 @@ int main()
     }
     */
 
-    // Find Book by Title
 
-    std::cout << std::endl << "Find book by a title";
-    std::cout << std::endl << "Enter Book title: ";
-    std::cin.ignore(std::cin.rdbuf()->in_avail());
-    std::getline(std::cin, user_title);
-    std::cin.clear();
+    // Find Book by Title
+    cout << endl << "Find book by a title";
+    cout << endl << "Enter Book title: ";
+    cin.ignore(cin.rdbuf()->in_avail());
+    getline(cin, user_title);
+    cin.clear();
 
     bookInfo = findBookByTitle(books, user_title);
 
-    std::cout << std::endl;
+    cout << endl;
 
-    if (bookInfo.first == "Error") { std::cout << "There is no book with title " << user_title << std::endl; }
-    else { std::cout << "Author: " << bookInfo.first << "\t\tYear of Publication: " << bookInfo.second << std::endl; }
+    if (bookInfo.first == "Error") { cout << "There is no book with title " << user_title << endl; }
+    else { cout << "Author: " << bookInfo.first << "\t\tYear of Publication: " << bookInfo.second << endl; }
 
     return 0;
 }

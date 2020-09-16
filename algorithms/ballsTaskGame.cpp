@@ -9,7 +9,7 @@
 using namespace std;
 
 
-void printBalls(vector<int> balls)
+void printBalls(const vector<int> &balls)
 {
     for (int i = 0; i < balls.size(); i++) { cout << balls[i] << " "; }
     cout << endl;

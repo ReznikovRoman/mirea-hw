@@ -11,7 +11,7 @@ using namespace std;
 */
 
 
-void printBalls(vector<int> balls)
+void printBalls(const vector<int> &balls)
 {
     for (int i = 0; i < balls.size(); i++) { cout << balls[i] << " "; }
     cout << endl;
@@ -33,7 +33,7 @@ void ballsTask()
         balls.push_back(i);
     }
 
-    
+
 
     while (next_permutation(balls.begin(), balls.end()))
     {
@@ -45,7 +45,7 @@ void ballsTask()
         for (int i = 0; i < balls.size(); i++)
         {
             if (balls[i] == i + 1)
-            { 
+            {
                 sum += 1;
                 //printBalls(balls); 
             }
@@ -56,13 +56,13 @@ void ballsTask()
 
 
 
-    
+
 }
 
 
 int main()
 {
-    
+
     ballsTask();
 
 

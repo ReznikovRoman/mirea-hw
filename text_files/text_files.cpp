@@ -43,7 +43,7 @@ void task1()
 }
 
 
-bool isNull(int x) { return x == 0; }
+bool isNull(const int &x) { return x == 0; }
 
 
 void task19()
@@ -52,8 +52,8 @@ void task19()
     string alph = "abcdefghijklmnopqrstuvwxyz";
 
     vector<int> counter(alph.size());
-    
-   
+
+
     string line, text;
 
     // write text to the file
@@ -104,9 +104,9 @@ void task19()
 int main()
 {
     //task1();
-    
+
     task19();
-    
+
 
 
     return 0;

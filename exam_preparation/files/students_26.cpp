@@ -28,7 +28,7 @@ public:
         lastName = a_lName;
         grades = a_grades;
     }
-    
+
     int getId() { return id; }
 
     string getFirstName() { return firstName; }
@@ -84,11 +84,11 @@ int main()
 
     string line;
     int n;
-   
+
 
     vector<string> subjects = { "Math", "Programming", "Informatics" };
     vector<Student> students;
-    
+
 
     cout << "Enter Students amount: ";
     cin >> n;
@@ -119,7 +119,7 @@ int main()
 
     ofstream in_file;
     in_file.open("students_26.txt");
-    
+
     for (auto student : students)
     {
         in_file << student.getId() << ". " << student.getFullName() << '\t';
