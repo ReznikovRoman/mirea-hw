@@ -6,6 +6,8 @@
 
 #include <vector>
 
+#include <algorithm>
+
 using namespace std;
 
 
@@ -63,7 +65,7 @@ void task4()
     
     cin >> X;
 
-    cout << (X / 10) % 5;
+    cout << (X / 10) % 10;
 
     cout << endl;
 }
@@ -115,13 +117,17 @@ void task7()
 
     // a1 = 5; d = 2
 
-    int S,n;
+    int S, n = 1;
 
-    int a1 = 5, d = 2;
+    int currS = 5, d = 2;
     
     cin >> S;
 
-    n = (S - a1 + d) / d;
+    while (currS < S)
+    {
+        currS += currS + 2;
+        n += 1;
+    }
 
     cout << n;
 
@@ -268,6 +274,124 @@ void task12()
 }
 
 
+void printMatrix(int m[100][100], int N, int M)
+{
+    cout << endl;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            cout << m[i][j] << " ";
+        }
+        cout << endl;
+    }
+        
+}
+
+
+void task13()
+{
+
+    cout << endl << "Task-13" << endl;
+
+    int N, M;
+    int sum = 0;
+
+    cin >> N;
+    cin >> M;
+
+    int m[100][100];
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            int x;
+            cin >> x;
+            m[i][j] = x;
+        }
+    }
+
+    printMatrix(m, N, M);
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if ((m[i][j] % 7) == 0) { sum += m[i][j]; }
+        }
+    }
+
+    cout << "Sum: " << sum;
+
+    cout << endl;
+}
+
+
+void task14()
+{
+    cout << endl << "Task-14" << endl;
+
+    string s = "hegsdjfwh**fwhgw***** fwd ** ffn  ******wj * ";
+    string newS = "";
+
+    for (auto c : s)
+    {
+        if (c != '*') { newS += c; }
+    }
+
+    cout << newS;
+
+    cout << endl;
+}
+
+
+vector<string> splitString(string s)
+{
+    vector<string> words;
+
+    string word = "";
+    s += " ";
+
+    for (auto c : s)
+    {
+        if (c != ' ')
+        {
+            word += c;
+        }
+        else
+        {
+            words.push_back(word);
+            word = "";
+        }
+    }
+
+    return words;
+}
+
+
+
+void task15()
+{
+    cout << endl << "Task-15" << endl;
+
+    string inputS;
+   
+    // https://stackoverflow.com/questions/21373234/using-two-getlinecin-s-in-c
+    cin.ignore(cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
+    getline(cin, inputS);
+    cin.clear();
+
+    vector<string> words = splitString(inputS);
+
+    for (auto word : words)
+    {
+        cout << (char)toupper(word[0]) << '.';
+    }
+
+    cout << endl;
+}
+
 
 int main()
 {
@@ -293,7 +417,13 @@ int main()
     
     //task11();
 
-    task12();
+    //task12();
+
+    //task13();
+
+    //task14();
+
+    task15();
 
 
     return 0;
