@@ -10,38 +10,42 @@
 using namespace std;
 
 
-vector<string> splitString(const string &s)
+vector<string> splitString(string s)
 {
     vector<string> words;
-    size_t pos = s.find(' ');
-    size_t initialPos = 0;
 
-    while (pos != string::npos)
+    string word = "";
+    s += " ";
+
+    for (auto c : s)
     {
-        words.push_back(s.substr(initialPos, pos - initialPos));
-        initialPos = pos + 1;
-
-        pos = s.find(' ', initialPos);
+        if (c != ' ')
+        {
+            word += c;
+        }
+        else
+        {
+            words.push_back(word);
+            word = "";
+        }
     }
-
-    words.push_back(s.substr(initialPos, min(pos, s.size()) - initialPos + 1));
 
     return words;
 }
 
 
-bool compareLength(const string &i, const string &j)
+bool compareLength(const string& i, const string& j)
 {
     return i.size() < j.size();
 }
 
-void sortByLength(vector<string> &words)
+void sortByLength(vector<string>& words)
 {
     sort(words.begin(), words.end(), compareLength);
 }
 
 
-void printWords(const vector<string> &words)
+void printWords(const vector<string>& words)
 {
     for (auto word : words) { cout << word << endl; }
 }
