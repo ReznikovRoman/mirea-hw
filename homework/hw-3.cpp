@@ -48,14 +48,12 @@ void task2()
     p2 = (pow(a2, 1 / n) - 1) * 100;
 
     cout << "P1: " << p1 << "\t\tP2: " << p2 << endl;
-
-
 }
 
 void task3()
 {
 
-    cout << endl << "Task 3";
+    cout << endl << "Task 3" << endl;
 
     string line;
 
@@ -71,6 +69,8 @@ void task3()
     {
         cout << line;
     }
+
+    cout << endl;
 }
 
 void task4()
@@ -105,7 +105,7 @@ void task4()
 }
 
 
-void sortedStr(string &s)
+void sortedStr(string& s)
 {
     sort(s.begin(), s.end());
 }
@@ -147,18 +147,35 @@ void task5()
 }
 
 
+// array of pointers to void functions with no params
+void (*funcPtrs[])() = { task1, task2, task3, task4, task5 };
+
+
 int main()
 {
 
-    task1();
+    cout << endl << "Homework - 3" << endl;
 
-    task2();
+    while (true)
+    {
+        int taskNum;
 
-    task3();
+        cout << "Which task do you want to check (1-5, 0 to quit) ?: ";
+        cin >> taskNum;
 
-    task4();
+        if (taskNum == 0) break;
 
-    task5();
+        try
+        {
+            (*funcPtrs[taskNum - 1])();
+        }
+        catch (...)
+        {
+            continue;
+        }
+
+        cout << endl;
+    }
 
     return 0;
 }
