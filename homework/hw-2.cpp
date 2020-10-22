@@ -4,20 +4,61 @@
 #include <cmath>
 using namespace std;
 
-void task1(const double &h, const double &r, const double &R, const double &l)
+
+/*
+ Комментарии к дз-2:
+
+0. Добавил интерфейс (возможность выбирать номера заданий)
+
+1. По первому заданию: - добавил интерфейс и проверку
+задача не доделана.
+нет интерфейса.
+нет проверки на существование конуса.
+нет условий проверки ввода данных.
+сама работа работает некорректно. - программа работает корректно
+
+2. По второму заданию - исправил проверку
+программа работает неверно.
+
+3. По третьему заданию: - исправил проверку
+программа вообще не выполняется.
+
+4. По четвертому заданию: - добавил интерфейс
+Число я должен вводить с клавиатуры. задание не выполнено.
+
+5. По пятому заданию: - программа работает корректно
+программа работает некорректно
+
+*/
+
+
+
+void task1()
 {
+    cout << endl << "Task - 1" << endl;
+
+    double h, r, R, l;
+    cout << "Enter height, lower and upper radii, slant height: ";
+    cin >> h >> r >> R >> l;
+
     double V, S;
 
     const double PI = 3.141592653589793;
+    
+    try
+    {
+        V = (PI * h * (R * R + R * r + r * r)) / 3;
+        S = PI * (R * R + (R + r) * l + r * r);
 
-    V = (PI * h * (R * R + R * r + r * r)) / 3;
-    S = PI * (R * R + (R + r) * l + r * r);
+        cout << "V: " << V << endl;
+        cout << "S: " << S << endl << endl;
+    }
+    catch (...)
+    {
+        cout << "error";
+    }
 
-
-    cout << endl << "Task - 1" << endl;
-    cout << "V: " << V << endl;
-    cout << "S: " << S << endl << endl;
-
+    cout << endl;
 }
 
 void task2()
@@ -27,23 +68,27 @@ void task2()
     cout << endl << "Task 2" << endl << "Enter 'a' and 'x': ";
     cin >> a >> x;
 
-    if ((x >= 1 || x <= -1) && ((a - x * x) < 0)) { cout << "Error" << endl; }
+    if ((a - x * x) < 0 || abs(x) < 0) { cout << "Error" << endl; }
     else
     {
-        if (x < 1 && x > -1) { w = a * log(abs(x)); }
-        if (x >= 1 || x <= -1) { w = sqrt(a - x * x); }
+        if (abs(x) < 1) { w = a * log(abs(x)); }
+        if (abs(x) >= 1) { w = sqrt(a - x * x); }
 
         cout << "W: " << w << endl;
     }
 }
 
-void task3(const float &x, const float &y, const float &b)
+void task3()
 {
-    float z;
-
     cout << endl << "Task - 3" << endl;
 
-    if (b - y < 0 || b - x < 0) { cout << "Error" << endl; }
+    float z;
+    float x = -1, y = -1, b = -1;
+
+    cout << "Enter b, y, x: ";
+    cin >> b >> y >> x;
+
+    if ((b - y) < 0 || (b - x) < 0) { cout << "Error" << endl; }
     else
     {
         z = (log(b - y)) * sqrt(b - x);
@@ -52,21 +97,26 @@ void task3(const float &x, const float &y, const float &b)
     }
 }
 
-void task4(int N)
+void task4()
 {
-
     cout << endl << "Task - 4" << endl;
+
+    int N;
+    cout << "Enter N: ";
+    cin >> N;
+
     for (int i = 0; i < 10; ++i)
     {
         cout << "I: " << i + 1 << "\t\tN: " << N << endl;
         N += 5;
     }
+
     cout << endl;
 }
 
 
 
-float f5(const float &x5)
+float f5(const float& x5)
 {
     return ((x5 * x5 - 2 * x5 + 2) / (x5 - 1));
 }
@@ -83,13 +133,36 @@ void task5()
 }
 
 
+// array of pointers to void functions with no params
+void (*funcPtrs[])() = { task1, task2, task3, task4, task5 };
+
+
 int main()
 {
-    task1(2, 7, 1, 10);
-    task2();
-    task3(100, 5, 90); // 3, 5, 6
-    task4(5);
-    task5();
+    cout << endl << "Homework - 2" << endl << endl;
+
+    
+    while (true)
+    {
+        int taskNum;
+
+        cout << "Which task do you want to check (1-5, 0 to quit) ?: ";
+        cin >> taskNum;
+
+        if (taskNum == 0) break;
+
+        try
+        {
+            (*funcPtrs[taskNum - 1])();
+        }
+        catch (...)
+        {
+            continue;
+        }
+
+        cout << endl;
+    }
+    
 
     return 0;
 }
