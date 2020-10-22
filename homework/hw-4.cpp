@@ -3,7 +3,10 @@
 #include <iostream>
 
 #include <fstream>
-#include <string>;
+#include <string>
+
+#include <vector>
+#include <cmath>
 
 #include <algorithm>
 using namespace std;
@@ -46,7 +49,7 @@ void task1()
 }
 
 
-int sign(const int &x)
+int sign(const int& x)
 {
     if (x > 0) { return 1; }
     if (x < 0) { return -1; }
@@ -65,19 +68,19 @@ void task2()
 }
 
 
-int rectangleArea(const int &width, const int &height)
+int rectangleArea(const int& width, const int& height)
 {
     return width * height;
 }
 
-float triangleArea(const float &base, const float &height)
+float triangleArea(const float& base, const float& height)
 {
-    return (base*height) / 2;
+    return (base * height) / 2;
 }
 
-float circleArea(const float &r)
+float circleArea(const float& r)
 {
-    return PI * r*r ;
+    return PI * r * r;
 }
 
 void task3()
@@ -101,17 +104,62 @@ void task3()
     cin >> r;
     cout << "Circle area is: " << circleArea(r) << endl;
     cout << endl;
-
 }
 
-void task4()
+void task4() // былая слава
 {
+    cout << endl << "Task - 4" << endl << endl;
 
+    int size = 34, height = 13; //11 - stars; ; 13 lines
+
+    vector<string> flag(height, string(size, '-'));
+
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 11; j++)
+        {
+            if (i % 2 != 0 && j % 2 != 0) { flag[i][j] = '*'; }
+            else if (i % 2 != 0 && j % 2 == 0) { flag[i][j] = ' '; }
+            else if (i % 2 == 0 && j % 2 == 0) { flag[i][j] = '*'; }
+            else if (i % 2 == 0 && j % 2 != 0) { flag[i][j] = ' '; }
+        }
+    }
+
+    for (auto p : flag)
+    {
+        if (p == "o") p = "-";
+        cout << p << '\n';
+    }
+
+    cout << endl;
 }
 
-void task5()
+
+void task5() // синусоида
 {
 
+    cout << endl << "Task - 5" << endl;
+
+    int size = 100, height = 21;
+
+    // preparing 'field' with spaces and a line in the middle
+    vector<string> chart(height, string(size, ' '));
+    chart[height / 2] = std::string(size, '-');
+
+    // calculate the y-values
+    for (int i = 0; i < size; i++) 
+    {
+        //cout << (round(10 * sin(i / 4.76)) + 10) << endl;
+        chart[(round(10 * sin(i / 4.76)) + 10)][i] = '.';
+    }
+
+    //printing the chart
+    for (auto p : chart) 
+    {
+        cout << p << '\n';
+    }
+
+    cout << endl;
 }
 
 void task6()
@@ -130,20 +178,20 @@ void task8()  // умножение матриц
 }
 
 
-int toDigit(const char &c)  // переводим текущий символ в число
+int toDigit(const char& c)  // переводим текущий символ в число
 {
     if (c >= '0' && c <= '9') { return (int)c - '0'; }
     else { return (int)c - 'A' + 10; }
 }
 
-char toChar(const int &num)  // переводим текущее число в строку
+char toChar(const int& num)  // переводим текущее число в строку
 {
     if (num >= 0 && num <= 9) { return (char)(num + '0'); }
     else { return (char)(num - 10 + 'A'); }
 }
 
 
-int toDecimal(string s, const int &base)
+int toDecimal(string s, const int& base)
 {
 
     /*
@@ -169,7 +217,7 @@ int toDecimal(string s, const int &base)
     return num;
 }
 
-string fromDecimal(int num, const int &base)
+string fromDecimal(int num, const int& base)
 {
 
     /*
@@ -212,19 +260,50 @@ void task9()  // системы счисления
 }
 
 
+// array of pointers to void functions with no params
+void (*funcPtrs[])() = { task1, task2, task3, task4, task5, task6, task7, task8, task9 };
+
+
 // hw-4
 int main()
 {
 
-    task1();  // файл
+    cout << endl << "Homework - 4" << endl;
+    
 
-    task2();  // знак числа
+    while (true)
+    {
+        int taskNum;
 
-    task3();  // геометрические фигуры
+        cout << "Which task do you want to check (1-9, 0 to quit) ?: ";
+        cin >> taskNum;
 
-    //task4();  // былая слава
+        if (taskNum == 0) break;
 
-    //task5();  // синусоида
+        try
+        {
+            (*funcPtrs[taskNum - 1])();
+        }
+        catch (...)
+        {
+            continue;
+        }
+
+        cout << endl;
+    }
+
+
+    /*
+    
+    task1();  // файл - DONE
+
+    task2();  // знак числа - DONE
+
+    task3();  // геометрические фигуры - DONE
+
+    //task4();  // былая слава - DONE
+
+    //task5();  // синусоида - DONE
 
     //task6();  // автоматный распознаватель
 
@@ -232,7 +311,9 @@ int main()
 
     //task8();  // умножение матриц
 
-    task9();  // системы счисления
+    task9();  // системы счисления - DONE
+    
+    */
 
     return 0;
 }
