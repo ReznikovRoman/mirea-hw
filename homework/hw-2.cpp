@@ -1,6 +1,7 @@
 
 
 #include <iostream>
+#include <limits.h>
 #include <cmath>
 using namespace std;
 
@@ -44,7 +45,31 @@ void task1()
     double V, S;
 
     const double PI = 3.141592653589793;
-    
+
+    bool inputAgain = true;
+    string inputAgainStr = "y";
+
+    while (!(h + r > l && r + l > h && r < R) && inputAgain)
+    {
+        cout << "Error. Do you want to enter values again? (y/n): ";
+        cin >> inputAgainStr;
+
+        if (inputAgainStr == "y")
+        {
+            inputAgain = true;
+        }
+        else
+        {
+            inputAgain = false;
+        }
+
+        if (inputAgain)
+        {
+            cout << "Enter height, lower and upper radii, slant height: ";
+            cin >> h >> r >> R >> l;
+        }
+    }
+
     try
     {
         V = (PI * h * (R * R + R * r + r * r)) / 3;
@@ -103,14 +128,36 @@ void task4()
 
     int N;
     cout << "Enter N: ";
-    cin >> N;
+
+    bool isValid = false;
+    while (!isValid)
+    {
+        cin >> N;
+        if (cin.good())
+        {
+            isValid = true;
+        }
+        else
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input, enter N again: ";
+        }
+    }
 
     for (int i = 0; i < 10; ++i)
     {
-        cout << "I: " << i + 1 << "\t\tN: " << N << endl;
-        N += 5;
-    }
+        if (N > 0)
+        {
+            cout << "I: " << i + 1 << "\t\tN: " << N << endl;
+            N += 1;
+        }
+        else
+        {
+            N += 1;
+        }
 
+    }
     cout << endl;
 }
 
@@ -127,7 +174,15 @@ void task5()
 
     for (float i = -4; i < 4.5; i += 0.5)
     {
-        cout << "Current x: " << i << "\t\tF(x): " << f5(i) << endl;
+        if (i == 1)
+        {
+            cout << "Current x: " << i << "\t\tF(x): " << "Error: Cannot divide by 0" << endl;
+        }
+        else
+        {
+            cout << "Current x: " << i << "\t\tF(x): " << f5(i) << endl;
+        }
+        
     }
     cout << endl;
 }
@@ -141,7 +196,7 @@ int main()
 {
     cout << endl << "Homework - 2" << endl << endl;
 
-    
+
     while (true)
     {
         int taskNum;
@@ -157,12 +212,12 @@ int main()
         }
         catch (...)
         {
-            continue;
+            break;
         }
 
         cout << endl;
     }
-    
+
 
     return 0;
 }

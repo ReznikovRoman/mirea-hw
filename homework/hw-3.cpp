@@ -31,23 +31,46 @@ void task2()
     // формула - ?
     // https://idroo.com/board-mxn19ajMe1
 
-    float S, p, n, m, r;
+    float S, n, m, r;
     float a1, a2, p1, p2;
 
     cout << endl << "Task 2";
     cout << endl << "Enter S, m, n: ";
     cin >> S >> m >> n;
 
-    // a = pow((1+r), n)
-    // a*a - a*(S + 12*m) + 12*m = 0
+    float ans = -1;
 
-    a1 = (S + 12 * m + sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
-    a2 = (S + 12 * m - sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
+    float ansDelta = FLT_MAX;
+    float currDelta;
 
-    p1 = (pow(a1, 1 / n) - 1) * 100;
-    p2 = (pow(a2, 1 / n) - 1) * 100;
+    for (float p = 0; p < 101; p++)
+    {
+        r = p / 100;
+        currDelta = abs(m - (S * r * pow((1 + r), n)) / (12 * (pow((1 + r), n) - 1)));
 
-    cout << "P1: " << p1 << "\t\tP2: " << p2 << endl;
+        if (currDelta < ansDelta)
+        {
+            ansDelta = currDelta;
+            ans = p;
+        }
+    }
+
+    if (ans == -1)
+    {
+        cout << "Error" << endl;
+    }
+    else
+    {
+        cout << "Ans: " << ans << endl;
+    }
+
+    //a1 = (S + 12 * m + sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
+    //a2 = (S + 12 * m - sqrt((S + 12 * m) * (S + 12 * m) - 4 * 12 * m * S)) / (2 * S);
+
+    //p1 = (pow(a1, 1 / n) - 1) * 100;
+    //p2 = (pow(a2, 1 / n) - 1) * 100;
+
+    //cout << "P1: " << p1 << "\t\tP2: " << p2 << endl;
 }
 
 void task3()
@@ -57,9 +80,16 @@ void task3()
 
     string line;
 
+    string inputStr;
+
+    cout << "Enter string: ";
+    cin.ignore(cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
+    getline(cin, inputStr);
+    cin.clear();
+
     ofstream in_file;
     in_file.open("test.txt");
-    in_file << "Test file";
+    in_file << inputStr;
     in_file.close();
 
     ifstream o_file;
@@ -79,10 +109,16 @@ void task4()
     string num = "";
 
     string line;
+    string inputStr;
+
+    cout << "Enter string: ";
+    cin.ignore(cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
+    getline(cin, inputStr);
+    cin.clear();
 
     ofstream in_file;
     in_file.open("test_4.txt");
-    in_file << "jkhsgfw34r353bfbsfdhb whgwfb4t 4tt4hjkgs 4t4jt2 t4jt";
+    in_file << inputStr + " ";
     in_file.close();
 
     ifstream o_file;
@@ -94,10 +130,16 @@ void task4()
     {
         for (auto c : line)
         {
-            if (isdigit(c)) { num += c; }
+            if (isdigit(c))
+            {
+                num += c;
+            }
             else
             {
-                if (num.length() > 0) { cout << num << endl; }
+                if (num.length() > 0)
+                {
+                    cout << num << endl;
+                }
                 num = "";
             }
         }
@@ -136,11 +178,18 @@ void task5()
     cout << endl;
 
     string s1 = "gfdjhgsjgjgjgjgjrfgewadfazfop";
-    string s2 = "hadakgrhdfjkgsgfdgvxcbchdtqde";
+    string s2;
+    //string s2 = "hadakgrhdfjkgsgfdgvxcbchdtqde";
+
+    cout << "Enter string: ";
+    cin.ignore(cin.rdbuf()->in_avail());  // https://cppstudy.wordpress.com/2009/03/27/cin-get-and-co/
+    getline(cin, s2);
+    cin.clear();
+
     string sortedS2;
 
-    sortedStr(s1);  // using <algorithm>
-    cout << "Sorted s1: " << s1 << endl;
+    //sortedStr(s1);  // using <algorithm>
+    //cout << "Sorted s1: " << s1 << endl;
 
     sortedS2 = sortStr(s2);  // using BubbleSort
     cout << "Sorted s2: " << sortedS2 << endl;
@@ -171,7 +220,7 @@ int main()
         }
         catch (...)
         {
-            continue;
+            break;
         }
 
         cout << endl;
