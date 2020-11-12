@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <cmath>
+#include <map>
 
 #include <algorithm>
 using namespace std;
@@ -25,16 +26,17 @@ void task1()
 
     ofstream in_file;
     in_file.open("task1.txt");
-    in_file << 10 << endl;
-    in_file << 12 << endl;
-    in_file << 130 << endl;
-    in_file << 1 << endl;
-    in_file << 24 << endl;
-    in_file << 75 << endl;
-    in_file << 34 << endl;
-    in_file << 87 << endl;
-    in_file << 90 << endl;
-    in_file << 67 << endl;
+
+    cout << "Enter 10 numbers:" << endl;
+    for (int i = 0; i < 10; i++)
+    {
+        int x;
+        cout << "Enter number: ";
+        cin >> x;
+
+        in_file << x << endl;
+    }
+
     in_file.close();
 
     ifstream out_file;
@@ -42,7 +44,6 @@ void task1()
     while (getline(out_file, line))
     {
         sum += stoi(line);
-        cout << line << endl;
     }
 
     cout << endl << "Sum: " << sum << endl;
@@ -147,14 +148,14 @@ void task5() // синусоида
     chart[height / 2] = std::string(size, '-');
 
     // calculate the y-values
-    for (int i = 0; i < size; i++) 
+    for (int i = 0; i < size; i++)
     {
         //cout << (round(10 * sin(i / 4.76)) + 10) << endl;
         chart[(round(10 * sin(i / 4.76)) + 10)][i] = '.';
     }
 
     //printing the chart
-    for (auto p : chart) 
+    for (auto p : chart)
     {
         cout << p << '\n';
     }
@@ -162,19 +163,162 @@ void task5() // синусоида
     cout << endl;
 }
 
-void task6()
+void task6()  // автоматный распознаватель
 {
+    cout << endl << "Task - 6" << endl;
 
+    string s;
+
+    cout << "Enter Roman value: ";
+    cin >> s;
+
+    // перевод из римской системы счисления в десятичную
+    map<char, int> m = {
+        {'I', 1},
+        {'V', 5},
+        {'X', 10},
+        {'L', 50},
+        {'C', 100},
+        {'D', 500},
+        {'M', 1000},
+    };
+
+    int ans = 0;
+
+    for (int i = 0; i < s.length(); ++i)
+    {
+        if (m[s[i + 1]] <= m[s[i]]) ans += m[s[i]];
+        else ans -= m[s[i]];
+    }
+
+    cout << "Ans: " << ans;
+    
+    cout << endl;
 }
 
 void task7()  // генератор случайных чисел
 {
+    cout << "Task 7" << endl;
 
+    // (m * Si + i) mod c
+    int m = 37, i = 3, c = 64;
+    int S;
+
+    for (int j = 0; j < i + 10; j++)
+    {
+        S = rand() % 100;
+        S = (m * S + i) % c;
+        cout << S << endl;
+    }
+
+    cout << endl;
 }
+
+
+void printMatrix(vector<vector<int>> m)
+{
+    cout << endl;
+    for (auto v : m)
+    {
+        for (auto el : v)
+        {
+            cout << el << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 
 void task8()  // умножение матриц
 {
+    int Na, Ma, Nb, Mb;
 
+    cout << "Enter Rows and Columns for matrix A: ";
+    cin >> Na >> Ma;
+
+    Nb = Ma;
+    Mb = 2;
+
+    vector<vector<int>> A(Na); // A[Na, Ma]
+    vector<vector<int>> B(Nb); // B[Ma, 2]
+    vector<vector<int>> C(Na); // C[Na, 2]
+
+    float ans1MaxValue = -1, ans1MinValue = 10001, ans2MaxValue = -1, ans2MinValue = 10001;
+    int ans1MaxInd = 0, ans2MaxInd = 0, ans1MinInd = 0, ans2MinInd = 0;
+    float ans3 = 0, ans4 = 0, ans5 = 0;
+    float fee1 = 0, fee2 = 0;
+
+    for (int i = 0; i < Na; i++)
+    {
+        for (int j = 0; j < Ma; j++)
+        {
+            cout << "Enter product count: ";
+            int x;
+            cin >> x;
+            A[i].push_back(x);
+        }
+        cout << endl;
+    }
+
+    for (int i = 0; i < Nb; i++)
+    {
+        cout << "Enter product's price and tax: ";
+        int px, tx;
+        cin >> px >> tx;
+        B[i].push_back(px);
+        B[i].push_back(tx);
+    }
+
+    for (int i = 0; i < Na; i++)
+    {
+
+        for (int j = 0; j < 2; j++)
+        {
+            C[i].push_back(0);
+            for (int k = 0; k < Ma; k++)
+            {
+               C[i][j] += A[i][k]*B[k][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < Na; i++)
+    {
+        ans3 += C[i][0];  // общая сумма денег, вырученных за проданные товары
+
+        ans4 += C[i][1];  // сколько всего комиссионных получили продавцы
+
+        ans5 += C[i][0] - C[i][1];  // общая сумма денег, прошедших через руки продавцов (с учетом комиссионных)
+
+        if (C[i][1] > ans2MaxValue)
+        {
+            ans2MaxValue = C[i][1];
+            ans2MaxInd = i;
+        }
+        else if (C[i][1] < ans2MinValue)
+        {
+            ans2MinValue = C[i][1];
+            ans2MinInd = i;
+        }
+
+        if (C[i][0] - C[i][1] > ans1MaxValue)
+        {
+            ans1MaxValue = C[i][0] - C[i][1];
+            ans1MaxInd = i;
+        }
+        else if (C[i][0] - C[i][1] < ans1MinValue)
+        {
+            ans1MinValue = C[i][0] - C[i][1];
+            ans1MinInd = i;
+        }
+    }
+
+    cout << "Ans 1: Max: " << ans1MaxInd + 1 << "  Min: " << ans1MinInd + 1 << endl;
+    cout << "Ans 2: Max: " << ans2MaxInd + 1 << "  Min: " << ans2MinInd + 1 << endl;
+    cout << "Ans 3: " << ans3 << endl << "Ans 4: " << ans4 << endl << "Ans 5: " << ans5;
+
+    cout << endl;
 }
 
 
@@ -269,7 +413,7 @@ int main()
 {
 
     cout << endl << "Homework - 4" << endl;
-    
+
 
     while (true)
     {
@@ -294,7 +438,7 @@ int main()
 
 
     /*
-    
+
     task1();  // файл - DONE
 
     task2();  // знак числа - DONE
@@ -305,14 +449,14 @@ int main()
 
     //task5();  // синусоида - DONE
 
-    //task6();  // автоматный распознаватель
+    //task6();  // автоматный распознаватель - DONE
 
     //task7();  // генератор случайных чисел
 
-    //task8();  // умножение матриц
+    //task8();  // умножение матриц - DONE
 
     task9();  // системы счисления - DONE
-    
+
     */
 
     return 0;

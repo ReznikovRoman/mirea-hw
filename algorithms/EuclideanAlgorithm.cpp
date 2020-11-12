@@ -34,8 +34,10 @@ int main()
 {
     // Алгоритм Евклида - наибольший общий делитель
     int ans;
+	
+	cin >> x >> y;
 
-    ans = gcd(35, 10);
+    ans = gcd(x, y);
 
     cout << "GCD: " << ans << endl;
 
