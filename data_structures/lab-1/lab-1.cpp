@@ -32,8 +32,7 @@ void delFirstMethod(int *x, int &n, const int &key)
 		actionsCount++;
 		if (x[i] == key)
 		{
-			for (int j = i; j < n - 1; j++)
-				x[j] = x[j + 1];
+			for (int j = i; j < n - 1; j++) x[j] = x[j + 1];
 			n -= 1;
 			actionsCount++;
 		}
