@@ -66,7 +66,7 @@ void task2()
 
 	const int n = 3, m = 3;
 	int matrix[n][m];
-	int maxValue = -1000;
+	int maxValue = INT_MIN;
 
 	// populate matrix
 	for (size_t i = 0; i < n; i++)
@@ -95,9 +95,7 @@ void task2()
 	{
 		for (size_t j = i + 1; j < m; j++)
 		{
-			cout << matrix[i][j] << " ";
-			if (matrix[i][j] > maxValue)
-				maxValue = matrix[i][j];
+			if (matrix[i][j] > maxValue) maxValue = matrix[i][j];
 		}
 	}
 	cout << endl;
@@ -108,6 +106,6 @@ void task2()
 
 int main()
 {
-	//task1();
+	task1();
 	task2();
 }
