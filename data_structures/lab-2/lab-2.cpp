@@ -1,6 +1,30 @@
 #include <iostream>
 using namespace std;
 
+/*
+
+1. Информационная часть узла определена вариантом                       +
+2. Разработать функцию для создания исходного списка, используя         +
+функцию вставки нового узла перед первым узлом.                         +
+3. Разработать функцию вывода списка.                                   +
+
+Вариант 7:
+
+Дан линейный однонаправленный список L
+                                                    #1                  +
+                                                    #2                  +
+                                                    #3                  -
+1) Разработать функцию, которая
+проверяет, есть ли в списке L два одинаковых
+элемента.
+2) Разработать функцию, которая удаляет
+из списка L максимальное значение.
+3) Разработать функцию, которая
+вставляет в список L новое значение перед
+каждым узлом в четной позиции.
+
+*/
+
 struct Node
 {
     int data;
@@ -213,6 +237,26 @@ void insertValueAtEvenPos(Node **headRef, int value)
     cout << endl;
 }
 
+// Question - 16
+void swapFirstLast(Node **head_ref)
+{
+    if (*head_ref == NULL || (*head_ref)->next == NULL)
+        return;
+
+    Node *secondLast = NULL;
+    Node *last = *head_ref;
+
+    while (last->next != NULL)
+    {
+        secondLast = last;
+        last = last->next;
+    }
+
+    secondLast->next = NULL;
+    last->next = *head_ref;
+    *head_ref = last;
+}
+
 int main()
 {
     Node *head = NULL;
@@ -232,5 +276,8 @@ int main()
     cout << "List has duplicates?(1-yes, 0-no): " << hasDuplicates(head) << endl;
 
     insertValueAtEvenPos(&head, 999);
+    printList(head);
+
+    swapFirstLast(&head);
     printList(head);
 }
